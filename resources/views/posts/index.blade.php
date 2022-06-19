@@ -1,13 +1,44 @@
+@extends('layouts.master')
 
-<h1> Posts List</h1>
+@section('title')
+Home Page
 
-<a href="posts/create"style="margin-left:10; text-decoration:none"> Create </a>
+@endsection
 
+@section('content')
+
+      <div class="container mt-5">
+       
+        @foreach($posts as $post)
+        <div>
+            <a href="/posts/{{$post->id}}" class="text-decoration-none"><h3> {{$post->title}}</h3> </a>
+            Jan 1 ,2022 By zy4
+            <p>{{$post->body}}</p>
+          <div class="d-flex justify-content-end">
+            
+                 <a href="posts/{{$post->id}}/edit" style="margin-left:10; text-decoration:none" class="btn btn-success mr-2"> Edit </a>
+                 <form action="/posts/{{$post->id}}"
+                method = "POST"
+                onsubmit="return confirm('Are you sure?')">
+                @method('DELETE')
+                @csrf
+                <button type="submit" class="btn btn-danger ms-2"> Delete</button> 
+
+            </form>
+          </div>
+          </div>
+        <hr>
+
+
+        @endforeach    
 <ul>
     @foreach($posts as $post)
-    <a href="posts/show/{{$post->id}}" style="margin-left:10; text-decoration:none"> {{ $post->title }} </a>
-    <a href="posts/edit/{{$post->id}}" style="margin-left:10; text-decoration:none"> Edit </a></t>
-    <a href="posts/delete/{{$post->id}}" style="margin-left:10; text-decoration:none; color:red"> Delete </a>
+    
     <br>
     @endforeach
 </ul>
+
+@endsection
+
+
+
